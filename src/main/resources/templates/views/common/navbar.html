@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
+<!-- th:fragment : 내가 포함하고 싶은 부분에다가 속성 삽입 -->
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand navbar-dark bg-dark"
+		aria-label="Second navbar example">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/home">SpringBoot project</a>
+			<div class="collapse navbar-collapse" id="navbarsExample02">
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/home">Home</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="/board/list">Board</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="/attm/list">Photo</a></li>
+				</ul>
+
+				<span style="color: white;"> </span>
+			</div>
+		</div>
+	</nav>
+
+
+	<script>
+	
+	const cloudIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clouds" viewBox="0 0 16 16">\
+							<path d="M16 7.5a2.5 2.5 0 0 1-1.456 2.272 3.513 3.513 0 0 0-.65-.824 1.5 1.5 0 0 0-.789-2.896.5.5 0 0 1-.627-.421 3 3 0 0 0-5.22-1.625 5.587 5.587 0 0 0-1.276.088 4.002 4.002 0 0 1 7.392.91A2.5 2.5 0 0 1 16 7.5"/>\
+							<path d="M7 5a4.5 4.5 0 0 1 4.473 4h.027a2.5 2.5 0 0 1 0 5H3a3 3 0 0 1-.247-5.99A4.502 4.502 0 0 1 7 5m3.5 4.5a3.5 3.5 0 0 0-6.89-.873.5.5 0 0 1-.51.375A2 2 0 1 0 3 13h8.5a1.5 1.5 0 1 0-.376-2.953.5.5 0 0 1-.624-.492z"/>\
+						</svg>';
+		
+	const sunCloudIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-sun" viewBox="0 0 16 16">\
+							<path d="M7 8a3.5 3.5 0 0 1 3.5 3.555.5.5 0 0 0 .624.492A1.503 1.503 0 0 1 13 13.5a1.5 1.5 0 0 1-1.5 1.5H3a2 2 0 1 1 .1-3.998.5.5 0 0 0 .51-.375A3.502 3.502 0 0 1 7 8m4.473 3a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 16h8.5a2.5 2.5 0 0 0 0-5z"/>\
+							<path d="M10.5 1.5a.5.5 0 0 0-1 0v1a.5.5 0 0 0 1 0zm3.743 1.964a.5.5 0 1 0-.707-.707l-.708.707a.5.5 0 0 0 .708.708l.707-.708zm-7.779-.707a.5.5 0 0 0-.707.707l.707.708a.5.5 0 1 0 .708-.708l-.708-.707zm1.734 3.374a2 2 0 1 1 3.296 2.198c.199.281.372.582.516.898a3 3 0 1 0-4.84-3.225c.352.011.696.055 1.028.129m4.484 4.074c.6.215 1.125.59 1.522 1.072a.5.5 0 0 0 .039-.742l-.707-.707a.5.5 0 0 0-.854.377M14.5 6.5a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>\
+						</svg>';
+		
+	const sunIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun" viewBox="0 0 16 16">\
+						<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>\
+					</svg>';
+	
+	const rainIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-rain" viewBox="0 0 16 16">\
+						<path d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m3 0a.5.5 0 0 1 .316.633l-1 3a.5.5 0 0 1-.948-.316l1-3a.5.5 0 0 1 .632-.317zm3 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m3 0a.5.5 0 0 1 .316.633l-1 3a.5.5 0 1 1-.948-.316l1-3a.5.5 0 0 1 .632-.317m.247-6.998a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973zM8.5 2a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1 0 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4.002 4.002 0 0 1 8.5 2"/>\
+					</svg>';
+	
+	const snowIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-snow" viewBox="0 0 16 16">\
+						<path d="M13.405 4.277a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10.25H13a3 3 0 0 0 .405-5.973M8.5 1.25a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1-.001 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4.002 4.002 0 0 1 8.5 1.25M2.625 11.5a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25zm2.75 2a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25m5.5 0a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25m-2.75-2a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25m5.5 0a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25"/>\
+					</svg>';
+	
+	
+					window.addEventListener('load', () => {
+					    getWeather();
+					    setInterval(getWeather, 1000 * 60 * 60);
+					  });
+
+					  const url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst';
+					  const serviceKey = '309bc42c6b2a717b7a2d65d020598b6be5ebb679034709de339c2d4f2e7f3ece';
+					  // 공통 쿼리 부분 미리 정의
+					  const commonParams = `?serviceKey=${serviceKey}&pageNo=1&numOfRows=1000&dataType=JSON`;
+
+					  const resultSpan = document.querySelector('span');
+
+					  async function getWeather() {
+					    try {
+					      // 날짜 및 시간 정보
+					      const now = new Date();
+					      const day = now.getFullYear().toString() +
+					        (now.getMonth() + 1).toString().padStart(2, '0') +
+					        now.getDate().toString().padStart(2, '0');
+					      const currentTime = now.getHours() * 100 + now.getMinutes();
+					      const baseTimeArray = [200, 500, 800, 1100, 1400, 1700, 2000, 2300];
+
+					      let baseTime = '0200';
+					      for (let i = 0; i < baseTimeArray.length; i++) {
+					        if (currentTime < baseTimeArray[i]) {
+					          baseTime = (baseTimeArray[i - 1] ?? baseTimeArray[0]).toString().padStart(4, '0');
+					          break;
+					        }
+					      }
+					      if (currentTime >= baseTimeArray[baseTimeArray.length - 1]) {
+					        baseTime = baseTimeArray[baseTimeArray.length - 1].toString().padStart(4, '0');
+					      }
+
+					      const weatherParams =
+					        `${commonParams}&base_date=${day}&base_time=${baseTime}&nx=60&ny=127`;
+
+					      // 날씨 API 요청
+					      const responseW = await fetch(url + weatherParams);
+					      const dataW = await responseW.json();
+					      const objArr = dataW.response.body.items.item;
+					      const nearByNow = objArr.filter(obj =>
+					        obj.fcstDate === day && obj.fcstTime.substring(0, 2) === now.getHours().toString().padStart(2, '0')
+					      ).slice(0, 12);
+
+					      const sliceArr = nearByNow.length ? nearByNow : objArr.slice(0, 12);
+
+					      let tmp, sky, pop, reh, pty;
+					      sliceArr.forEach(obj => {
+					        if (obj.category === 'TMP') tmp = obj.fcstValue;
+					        else if (obj.category === 'SKY') sky = obj.fcstValue;
+					        else if (obj.category === 'POP') pop = obj.fcstValue;
+					        else if (obj.category === 'REH') reh = obj.fcstValue;
+					        else if (obj.category === 'PTY') pty = obj.fcstValue;
+					      });
+
+					      // 날씨 정보 표시 준비
+					      let todayInfo = '서울 ';
+					      if ([1, 4].includes(pty)) todayInfo += rainIcon;
+					      else if (pty === 2) todayInfo += rainIcon + snowIcon;
+					      else if (pty === 3) todayInfo += snowIcon;
+					      else todayInfo += sky === '1' ? sunIcon : cloudIcon;
+					      todayInfo += ` ${tmp}℃ | 습도 ${reh}% | 강수확률 ${pop}%`;
+
+					      // 공기질 API 호출
+					      const airUrl = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty';
+					      const airParams = `?serviceKey=${serviceKey}&returnType=JSON&numOfRows=100&pageNo=1&sidoName=서울&ver=1.0`;
+
+					      const responseA = await fetch(airUrl + airParams);
+					      const dataA = await responseA.json();
+					      const station = dataA.response.body.items.find(o => o.stationName === '중구') ?? {};
+
+					      const circleSVG = (color) =>
+					        `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="${color}" class="bi bi-circle-fill" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/></svg>`;
+
+					      const grades = {
+					        1: ['좋음', 'green'],
+					        2: ['보통', 'yellow'],
+					        3: ['나쁨', 'red'],
+					        4: ['매우나쁨', 'brown']
+					      };
+					      const [state10, color10] = grades[station.pm10Grade] || ['-', 'gray'];
+					      const [state25, color25] = grades[station.pm25Grade] || ['-', 'gray'];
+
+					      todayInfo += ` || 미세먼지 ${state10} ${circleSVG(color10)} || 초미세먼지 ${state25} ${circleSVG(color25)}`;
+					      resultSpan.innerHTML = todayInfo;
+
+					      $(resultSpan).slideUp(1200).slideDown(1200);
+					    } catch (error) {
+					      console.error('getWeather error:', error);
+					    }
+					  }
+		
+
+		
+	</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

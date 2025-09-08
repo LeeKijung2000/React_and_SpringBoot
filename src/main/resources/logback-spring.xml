@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- defaults.xml : 변환 규칙, 패턴 속성 및 일반적인 로거 구성 제공 -->
+	<include resource="org/springframework/boot/logging/logback/defaults.xml"></include>
+	<!-- console-appender.xml : 콘솔 로그 패턴을 사용하여 ConsoleAppender 추가 -->
+	<include resource="org/springframework/boot/logging/logback/console-appender.xml"></include>
+	
+	<!-- 모든 자식 logger들의 출력이 rootLogger를 통해 이루어짐 -->
+	<root level="INFO">
+		<appender-ref ref="CONSOLE"/> <!-- 로그를 콘솔로 출력한다 모든 logger들을 -->
+	</root>
+	
+	<!-- appender : 전달된 로그를 어디에 출력할지 결정
+			consoleAppender 	:로그를 콘솔에
+			JDBCAppender 		:로그를 DB에
+			FileAppender		:로그를 파일에
+			RollingFileAppender :파일어펜더를 보완한 개념, 일정 조건 후 기존 파일을 백업 파일로 바꾸고 다시 처음부터 시작
+			
+		layout: 로그를 어떤 형식으로 출력할지 결정
+			datelayout, htmllayout, patternlayout(가장 디버깅에 적합), simpleloyout, xmllayout
+		%p debug, info, warn, error, fatal 등의 priority 출력
+		%m 로그내용출력
+		%d 로그 이벤트가 발생한 시간 출력(프로그램 실행 속도가 느려질 수 있음)
+			포맷형식 %d{hh:mm:ss, sss} 같은 형태로 사용 (simpleDateFormat에 따른 포맷팅)
+		%t 로그 이벤트가 발새왼 스레드 이름 출력
+		%% %표시
+		%n 개행문자
+		%c{n} package출력
+			n(숫자)마큼의 package를 하단부터 역으로 출력
+			a,b,c처럼 되어있을 때 $c{2}는 b.c로 나옴
+		%C{n} 클래스 명 출력
+			n에 대한 내용은 위와 같음
+			-> 내용은 이렇지만 %c %C에 대한 차이는 크게 없음
+		%F 로깅이 발생한 프로그램 파일명 출력
+		%l 로깅이 발생한 caller의 정보 출력
+		%L 로깅이 발생한 caller의 라인수 출력
+		%M 로깅이 발생한 method이름 출력
+		%r 애플리케이션 시작 이후 로깅이 발생한 시점의 시간 출력	
+	 -->
+    <!-- 콘솔 출력 설정 -->
+    <appender name="myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} %-5p %c.%M - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 파일 출력 설정 -->
+    <appender name="myFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>D:/logs/member/login.log</file>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M>%L - %m%n</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>D:/logs/member/login.log.%d{yyyyMMdd}</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 특정 클래스 로거 -->
+    <logger name="kh.springboot.member.controller.MemberController" level="debug" additivity="false">
+    <!-- debug이상은 다 로그를 찍어버린다 -->
+    <!-- additivity="false"는 root로그로만 안가게 막아버린다 -->
+        <appender-ref ref="myConsoleAppender"/>
+        <appender-ref ref="myFileAppender"/>
+    </logger>
+    
+    <!-- LoggerInterceptor 클래스 로거 -->
+    <logger name="kh.springboot.common.interceptor.LoggerInterceptor" level="debug" additivity="false">
+<!--         <appender-ref ref="myConsoleAppender"/> -->
+        <appender-ref ref="myFileAppender"/>
+    </logger>
+	
+	
+</configuration>

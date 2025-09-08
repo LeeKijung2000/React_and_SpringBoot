@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kh.springboot.member.model.mapper.MemberMapper"> <!-- Mapper어노테이션을 가지고 있는 interface의 클래스명의 풀네임과 일치 -->
+	<select id="login" resultType="Member"> <!-- Mapper어노테이션을 가지고 있는 interface의 메소드명과 일치 -->
+		select *
+		from member
+		where id = #{id} and member_status = 'Y'
+	</select>
+	<insert id="insertMember">
+		insert
+		into member values
+		(#{id}, #{pwd}, #{name}, #{nickName}, #{email}, #{gender}, #{age}, #{phone}, #{address}, default, default, default, default)
+	</insert>
+	
+	<!-- ArrayList에 담기는 Type이 resultType이 됨 -->
+	<select id="selectMyList" resultType="map">
+		<![CDATA[
+			select bid_btype, board_title, cdate, bc_rc
+			from (select board_id as bid_btype, board_title, board_create_date cdate, to_char(board_count) bc_rc
+			      from board
+			      where board_writer = #{id} and board_status = 'Y'
+			      order by board_id desc)
+			where rownum <= 5
+			union
+			select *
+			from (select board_type-3, board_title, reply_create_date, reply_content 
+			      from reply
+			           join board on(board_id = ref_board_id)
+			      where reply_writer = #{id} and reply_status = 'Y'
+			      order by reply_id desc)
+			where rownum <= 5
+			order by bid_btype desc
+		]]>
+	</select>
+	
+	<update id="updateMember">
+		update member
+		set name=#{name}, nickname=#{nickName}, email=#{email}, gender=#{gender}, age=#{age}, phone=#{phone}, address=#{address}, update_date=sysdate
+		where id=#{id}
+	</update>
+	
+	<update id="updatePassword">
+		update member
+		set pwd=#{pwd}
+		where id=#{id}
+	</update>
+	
+	<update id="deleteMember">
+		update member
+		set member_status='N'
+		where id=#{id}
+	</update>
+	
+<!-- 	<select id="checkId" resultType="_int"> -->
+<!-- 		select count(*) -->
+<!-- 		from member -->
+<!-- 		where id = #{id} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="checkNickName" resultType="_int"> -->
+<!-- 		select count(*) -->
+<!-- 		from member -->
+<!-- 		where nickname = #{nickName} -->
+<!-- 	</select> -->
+	
+	<select id="checkValue" resultType="_int">
+		select count(*)
+		from member
+		where ${col} = #{val}
+	</select>
+
+<!-- 	<select id="findId" resultType="string"> -->
+<!-- 		select id -->
+<!-- 		from member -->
+<!-- 		where name = #{name} and email = #{email} and member_status = 'Y' -->
+<!-- 	</select> -->
+
+<!-- 	<select id="findPw" resultType="Member"> -->
+<!-- 		select * -->
+<!-- 		from member -->
+<!-- 		where id = #{id} and email = #{email} and member_status = 'Y' -->
+<!-- 	</select> -->
+	
+	<select id="findInfo" resultType="Member">
+		select *
+		from member
+		where member_status = 'Y' and email = #{email} and
+		<if test="name != null">
+			name = #{name}
+		</if>
+		<if test="name == null">
+			id = #{id}
+		</if>
+	</select>
+	
+	<select id="getTodolist" resultType="TodoList">
+		select *
+		from todo_list
+		where writer = #{id}
+		order by todo_num
+	</select>
+	
+	<insert id="insertTodo">
+		<selectKey keyProperty="todoNum" order="BEFORE" resultType="_int">
+			select seq_lid.nextval from dual
+		</selectKey>
+		insert into todo_list
+		values(#{todoNum}, #{todo}, #{writer}, default, default)
+	</insert>
+	
+	<update id="updateTodo">
+		update todo_list
+		<if test="status != null">
+			set status = #{status}
+		</if>
+		<if test="status == null">
+			set important = #{important}
+		</if>	
+		where todo_num = #{todoNum}
+	</update>
+	
+	<delete id="ldeleteTodo">
+		delete from todo_list
+		where todo_num = #{num}
+	</delete>
+	
+	<update id="updateProfile">
+		update member 
+		set profile = #{profile}
+		where id=#{id}
+	</update>
+	
+
+</mapper>
